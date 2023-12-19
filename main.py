@@ -8,6 +8,8 @@ from handlers import (
     myinfo_router,
     picture_router,
     shop_router,
+    free_lesson_form_router,
+    questions_router,
     echo_router
 )
 
@@ -18,6 +20,8 @@ async def main():
         types.BotCommand(command="myinfo", description="информация обо мне"),
         types.BotCommand(command="pic", description="показать картинку"),
         types.BotCommand(command="shop", description="магазин"),
+        types.BotCommand(command="free_lesson", description="Записаться на открытый урок"),
+        types.BotCommand(command="quest", description="опросник"),
         types.BotCommand(command="echo", description="эхо")
     ])
 
@@ -25,6 +29,8 @@ async def main():
     dp.include_router(myinfo_router)
     dp.include_router(picture_router)
     dp.include_router(shop_router)
+    dp.include_router(free_lesson_form_router)
+    dp.include_router(questions_router)
     dp.include_router(echo_router)
     await dp.start_polling(bot)
 
