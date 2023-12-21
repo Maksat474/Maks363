@@ -1,5 +1,7 @@
 from aiogram import F, Router, types
 from aiogram.filters import Command
+from bot import bot
+from db import queries
 
 
 shop_router = Router()
@@ -13,7 +15,7 @@ async def shop(message: types.Message):
                 types.KeyboardButton(text="Книги")
             ],
             [
-                types.KeyboardButton(text="Комиксы"),
+                types.KeyboardButton(text="Манги"),
                 types.KeyboardButton(text="Сувениры"),
             ]
         ],
@@ -27,5 +29,13 @@ async def shop(message: types.Message):
 @shop_router.message(F.text == "Книги")
 async def show_books(message: types.Message):
     kb = types.ReplyKeyboardRemove()
-    await message.answer("Список книг в нашем магазине!",
-                         reply_markup=kb)
+    data = queries.get_all_products()
+
+    for object in data:
+        file = types.FSInputFile(object[3])
+        await bot.send_photo(
+            chat_id=message.from_user.id,
+            photo=file,
+            caption=f"Наименование товара: {object[1]}\n"                                           
+                    f"Цена: {object[2]}",
+                             reply_markup=kb)

@@ -12,6 +12,13 @@ from handlers import (
     questions_router,
     echo_router
 )
+from db.queries import init_db, create_tables, populate_tables
+
+
+async def on_startup(dispatcher):
+    init_db()
+    create_tables()
+    populate_tables()
 
 
 async def main():
@@ -31,6 +38,8 @@ async def main():
     dp.include_router(shop_router)
     dp.include_router(free_lesson_form_router)
     dp.include_router(questions_router)
+
+    dp.startup.register(on_startup)
     dp.include_router(echo_router)
     await dp.start_polling(bot)
 
