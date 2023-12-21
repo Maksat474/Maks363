@@ -58,15 +58,6 @@ def get_product_by_category_id(category_id: int):
     return cursor.fetchall()
 
 
-def get_all_subscribers(chat_id: int):
-    cursor.execute(
-        """
-        SELECT * FROM subscribers WHERE chat_id = :chat_id
-        """, {"chat_id": chat_id}
-    )
-    return cursor.fetchall()
-
-
 if __name__ == "__main__":
     init_db()
     create_tables()
