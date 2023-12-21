@@ -50,18 +50,8 @@ def get_all_products():
     return cursor.fetchall()
 
 
-def get_product_by_category_id(category_id: int):
-    cursor.execute(
-        """
-        SELECT * FROM products WHERE category_id = :cat_id
-        """, {"cat_id": category_id}
-    )
-    return cursor.fetchall()
-
-
 if __name__ == "__main__":
     init_db()
     create_tables()
     populate_tables()
-    # pprint(get_all_products())
-    pprint(get_product_by_category_id(1))
+    pprint(get_all_products())
