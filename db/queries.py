@@ -4,8 +4,9 @@ from pprint import pprint
 
 
 def init_db():
+    db_path = Path(__file__).parent.parent / "db/sqlite3"
     global db, cursor
-    db = sqlite3.connect(Path(__file__).parent.parent / "db/sqlite3")
+    db = sqlite3.connect(db_path)
     cursor = db.cursor()
 
 
