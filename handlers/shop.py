@@ -29,13 +29,31 @@ async def shop(message: types.Message):
 @shop_router.message(F.text == "Книги")
 async def show_books(message: types.Message):
     kb = types.ReplyKeyboardRemove()
-    data = queries.get_all_products()
+    products = queries.get_product_by_category_id(1)
+    for product in products:
+        file = types.FSInputFile(product[3])
+        await bot.send_photo(chat_id=message.from_user.id, photo=file, caption=f"Наименование товара: {product[1]}\n"
+                                                                               f"Цена: {product[2]} сом",
+                             reply_markup=kb)
 
-    for object in data:
-        file = types.FSInputFile(object[3])
-        await bot.send_photo(
-            chat_id=message.from_user.id,
-            photo=file,
-            caption=f"Наименование товара: {object[1]}\n"                                           
-                    f"Цена: {object[2]}",
+
+@shop_router.message(F.text == "Манги")
+async def show_comics(message: types.Message):
+    kb = types.ReplyKeyboardRemove()
+    products = queries.get_product_by_category_id(2)
+    for product in products:
+        file = types.FSInputFile(product[3])
+        await bot.send_photo(chat_id=message.from_user.id, photo=file, caption=f"Наименование товара: {product[1]}\n"
+                                                                               f"Цена: {product[2]} сом",
+                             reply_markup=kb)
+
+
+@shop_router.message(F.text == "Сувениры")
+async def show_comics(message: types.Message):
+    kb = types.ReplyKeyboardRemove()
+    products = queries.get_product_by_category_id(3)
+    for product in products:
+        file = types.FSInputFile(product[3])
+        await bot.send_photo(chat_id=message.from_user.id, photo=file, caption=f"Наименование товара: {product[1]}\n"
+                                                                               f"Цена: {product[2]} сом",
                              reply_markup=kb)
