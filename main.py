@@ -2,7 +2,7 @@ import asyncio
 from aiogram import types
 
 import logging
-from bot import bot, dp
+from bot import bot, dp, scheduler
 from handlers import (
     start_router,
     myinfo_router,
@@ -10,6 +10,7 @@ from handlers import (
     shop_router,
     free_lesson_form_router,
     questions_router,
+    delayed_answer_router,
     echo_router
 )
 from db.queries import init_db, create_tables, populate_tables
@@ -29,6 +30,7 @@ async def main():
         types.BotCommand(command="shop", description="магазин"),
         types.BotCommand(command="free_lesson", description="Записаться на открытый урок"),
         types.BotCommand(command="quest", description="опросник"),
+        types.BotCommand(command="remind", description="напоминалка"),
         types.BotCommand(command="echo", description="эхо")
     ])
 
@@ -38,9 +40,11 @@ async def main():
     dp.include_router(shop_router)
     dp.include_router(free_lesson_form_router)
     dp.include_router(questions_router)
+    dp.include_router(delayed_answer_router)
 
     dp.startup.register(on_startup)
     dp.include_router(echo_router)
+    scheduler.start()
     await dp.start_polling(bot)
 
 
