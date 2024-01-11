@@ -11,6 +11,7 @@ from handlers import (
     free_lesson_form_router,
     questions_router,
     delayed_answer_router,
+    group_messages_router,
     echo_router
 )
 from db.queries import init_db, create_tables, populate_tables
@@ -41,6 +42,7 @@ async def main():
     dp.include_router(free_lesson_form_router)
     dp.include_router(questions_router)
     dp.include_router(delayed_answer_router)
+    dp.include_router(group_messages_router)
 
     dp.startup.register(on_startup)
     dp.include_router(echo_router)

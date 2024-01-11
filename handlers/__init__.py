@@ -6,3 +6,4 @@ from handlers.shop import shop_router
 from handlers.free_lesson_subscribe import free_lesson_form_router
 from handlers.questions_fsm import questions_router
 from handlers.delayed_answer import delayed_answer_router
+from handlers.group_admin import group_messages_router
